@@ -31,19 +31,6 @@ Extensive evaluations demonstrate that UltraShape 1.0 performs competitively wit
 * **[2025-12-25]** 📄 We released the technical report of **UltraShape 1.0** on arXiv.
 * **[Coming Soon]** 🚀 Training code and pre-trained models will be released soon. Stay tuned!
 
-## 💡 Key Features
-
-### 1. Scalable Two-Stage Generation
-We adopt a coarse-to-fine strategy. The model first synthesizes a global structure and then performs voxel-based refinement to hallucinate high-frequency geometric details.
-
-### 2. Robust Data Processing Pipeline
-We train exclusively on publicly available 3D datasets. Our novel pipeline includes:
-* **Watertight Processing:** Effectively fills holes and repairs non-manifold geometry.
-* **Quality Filtering:** Automatically removes low-quality samples to ensure high training stability.
-
-### 3. Decoupled Spatial Refinement
-We introduce a mechanism to decouple spatial localization from detail synthesis. By using voxel queries with **RoPE (Rotary Positional Embeddings)** as explicit positional anchors, the model can focus purely on local geometric details within a structured solution space.
-
 ## 🗓️ To-Do List
 - [ ] Release inference code
 - [ ] Release pre-trained weights (Hugging Face)
