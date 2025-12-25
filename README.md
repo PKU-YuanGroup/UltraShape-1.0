@@ -37,16 +37,6 @@ Extensive evaluations demonstrate that UltraShape 1.0 performs competitively wit
 - [ ] Release training code
 - [ ] Release data processing scripts
 
-## 🛠️ Installation & Usage
-
-*(Code coming soon. The following is a placeholder for future updates)*
-
-```bash
-git clone https://github.com/PKU-YuanGroup/UltraShape-1.0.git
-cd UltraShape
-pip install -r requirements.txt
-```
-
 ## 🔗 BibTeX
 
 If you found this repository helpful, please cite our reports:
