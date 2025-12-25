@@ -23,7 +23,7 @@ npm-debug.log*
 *.temp
 
 **/*.glb
-**/*.mp4
+# **/*.mp4
 
 # Assets (keep structure, but ignore large files if needed)
 # Uncomment if you want to ignore placeholder assets
