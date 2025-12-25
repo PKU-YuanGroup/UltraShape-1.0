@@ -1,0 +1,772 @@
+<html lang="en"><head><style type="text/css">
+.anticon {
+  display: inline-block;
+  color: inherit;
+  font-style: normal;
+  line-height: 0;
+  text-align: center;
+  text-transform: none;
+  vertical-align: -0.125em;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.anticon > * {
+  line-height: 1;
+}
+
+.anticon svg {
+  display: inline-block;
+}
+
+.anticon::before {
+  display: none;
+}
+
+.anticon .anticon-icon {
+  display: block;
+}
+
+.anticon[tabindex] {
+  cursor: pointer;
+}
+
+.anticon-spin::before,
+.anticon-spin {
+  display: inline-block;
+  -webkit-animation: loadingCircle 1s infinite linear;
+  animation: loadingCircle 1s infinite linear;
+}
+
+@-webkit-keyframes loadingCircle {
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes loadingCircle {
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+</style>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>UltraShape 1.0: High-Fidelity 3D Shape Generation via Scalable Geometric Refinement</title>
+        <!-- TODO: Replace with UltraShape 1.0 favicon -->
+        <link rel="icon" href="assets/favicon.png">
+        <link rel="stylesheet" href="stylesheet.css">
+        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="window.css">
+        <link rel="stylesheet" href="carousel.css">
+        <link rel="stylesheet" href="main.css">
+        <link rel="stylesheet" href="pv.css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.3.0/model-viewer.min.js"></script>
+        <script src="carousel.js" defer></script>
+    </head>
+    <body>
+        <div class="animated-gradient hero-expandable" style="width: 100%; height: 90vh; position: relative; overflow: hidden;">
+    
+            <img 
+                src="assets\images\teaser.png" 
+                alt="Hero background" 
+                style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.9;"
+            >
+            <div style="position: relative; z-index: 1; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; color: #ffffff; padding: 80px 20px; text-align: center;">
+
+                <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+
+                <div style="font-family: 'Outfit', sans-serif;">
+                    
+                    <div style="
+                        font-size: 100px; 
+                        font-weight: 700; 
+                        margin-bottom: 24px; 
+                        background: linear-gradient(135deg, #ffffff 0%, #c3ecff 100%);
+                        -webkit-background-clip: text;
+                        -webkit-text-fill-color: transparent;
+                        letter-spacing: -2px; 
+                        text-shadow: 0px 10px 30px rgba(0,0,0,0.3); 
+                    ">
+                        UltraShape 1.0
+                    </div>
+
+                    <div style="
+                        font-family: 'Inter', sans-serif;
+                        font-size: 60px; 
+                        font-weight: 600; 
+                        color: rgba(255, 255, 255, 0.9);
+                        margin-bottom: 48px; 
+                        max-width: 1200px; 
+                        line-height: 1.6;
+                        letter-spacing: 1px; 
+                    ">
+                        High-Fidelity 3D Shape Generation via Scalable Geometric Refinement
+                    </div>
+
+                </div>
+
+                <div style="font-size: 22px; font-weight: 400; margin-bottom: 48px; max-width: 1200px; line-height: 1.8; opacity: 0.95;">
+                    We introduce UltraShape-1.0, a scalable two-stage diffusion framework for high-quality 3D geometry generation, enhanced by an advanced data processing pipeline that ensures geometric details through watertight processing and quality filtering.
+                </div>
+                <div id="links" style="display: flex; gap: 16px; flex-wrap: wrap; justify-content: center;">
+                    <div><a id="paper" href="https://arxiv.org/pdf/2512.21185">Read Research Paper</a></div>
+                    <div><a id="code" href="https://github.com/PKU-YuanGroup/UltraShape-1.0">Code</a></div>
+                    <div><a id="demo" href="#demo">Demo</a></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="main" style="background: #faf9f7;">
+            <div class="x-section-title" style="text-align: center; margin-top: 80px;">Main Pipeline</div>
+            
+            <div style="background: #f8f9fa; padding: 80px 20px;">
+                <div style="max-width: 1200px; margin: 0 auto; border-radius: 16px; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.15); position: relative;">
+                    
+                    <img src="assets\images\pipeline.png" alt="Video cover" style="width: 100%; height: auto; display: block;">
+                    
+                    
+                </div>
+            </div>    
+
+            <div class="x-section-title"  style="text-align: center; margin-top: 50px;">Image to 3D Shape Generation</div>
+            <div id="results-gen">
+                <div class="x-carousel-tags">
+                    <!-- <div class="x-carousel-tag active" data-filter="all">All</div> -->
+                    <!-- <div class="x-carousel-tag" data-filter="class1">Object</div> -->
+                    <!-- <div class="x-carousel-tag" data-filter="class2">Multi-Object</div> -->
+                    <!-- <div class="x-carousel-tag" data-filter="class3">Character</div> -->
+                    <!-- <div class="x-carousel-tag" data-filter="class4">Car</div> -->
+                </div>
+                <div class="x-carousel-slider">
+                    <!-- Item 1 -->
+                    <div class="x-carousel-slider-item" data-tag="class1" style="flex-basis: calc(100% / 1);">
+                        <div class="x-card" style="height: 70vh;">
+                            <!-- <div class="x-button" 
+                                style="position: absolute; top: 10px; right: 85px; padding: 15px 30px; 
+                                        font-size: 22px; font-weight: bold; z-index: 10; cursor: pointer;" 
+                                data-glb="assets/meshs/1.glb" 
+                                data-prompt="assets/images/1.png">
+                                View GLB
+                            </div> -->
+                            <!-- <div class="x-button" style="position: absolute; top: 10px; right: 10px; padding: 12px 24px; font-size: 24px;" data-glb="assets/meshs/1.glb" data-prompt="assets/images/1.png">View GLB</div> -->
+                            <div style="width: 85%; aspect-ratio: 1; background-color: rgba(0,0,0,0.05); border-radius: 4px; overflow: hidden;">
+                                <video 
+                                    autoplay 
+                                    loop 
+                                    muted 
+                                    playsinline 
+                                    style="width: 100%; height: 100%; object-fit: contain;">
+                                    <source src="assets/videos/1.mp4" type="video/mp4">
+                                </video>
+                            </div>
+                            <div style="width: 200px; aspect-ratio: 1; background-color: rgba(0,0,0,0.05); border-radius: 4px; overflow: hidden;">
+                                <img 
+                                    src="assets/images/1.png" 
+                                    alt="Input Image"
+                                    style="width: 100%; height: 100%; object-fit: contain; display: block;"
+                                >
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Item 2 -->
+                    <div class="x-carousel-slider-item" data-tag="class1" style="flex-basis: calc(100% / 1);">
+                        <div class="x-card" style="height: 70vh;">
+                            <!-- <div class="x-button" style="position: absolute; top: 10px; right: 10px" data-glb="assets/meshs/2.glb" data-prompt="Input Prompt 1">View GLB</div> -->
+                            <div style="width: 85%; aspect-ratio: 1; background-color: rgba(0,0,0,0.05); border-radius: 4px; overflow: hidden;">
+                                <video 
+                                    autoplay 
+                                    loop 
+                                    muted 
+                                    playsinline 
+                                    style="width: 100%; height: 100%; object-fit: contain;">
+                                    <source src="assets/videos/2.mp4" type="video/mp4">
+                                </video>
+                            </div>
+                            <div style="width: 200px; aspect-ratio: 1; background-color: rgba(0,0,0,0.05); border-radius: 4px; overflow: hidden;">
+                                <img 
+                                    src="assets/images/2.png" 
+                                    alt="Input Image"
+                                    style="width: 100%; height: 100%; object-fit: contain; display: block;"
+                                >
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Item 3 -->
+                    <div class="x-carousel-slider-item" data-tag="class3" style="flex-basis: calc(100% / 1);">
+                        <div class="x-card" style="height: 70vh;">
+                            <!-- <div class="x-button" style="position: absolute; top: 10px; right: 10px" data-glb="assets/meshs/3.glb" data-prompt="Input Prompt 1">View GLB</div> -->
+                            <div style="width: 85%; aspect-ratio: 1; background-color: rgba(0,0,0,0.05); border-radius: 4px; overflow: hidden;">
+                                <video 
+                                    autoplay 
+                                    loop 
+                                    muted 
+                                    playsinline 
+                                    style="width: 100%; height: 100%; object-fit: contain;">
+                                    <source src="assets/videos/3.mp4" type="video/mp4">
+                                </video>
+                            </div>
+                            <div style="width: 200px; aspect-ratio: 1; background-color: rgba(0,0,0,0.05); border-radius: 4px; overflow: hidden;">
+                                <img 
+                                    src="assets/images/3.png" 
+                                    alt="Input Image"
+                                    style="width: 100%; height: 100%; object-fit: contain; display: block;"
+                                >
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Item 4 -->
+                    <div class="x-carousel-slider-item" data-tag="class3" style="flex-basis: calc(100% / 1);">
+                        <div class="x-card" style="height: 70vh;">
+                            <!-- <div class="x-button" style="position: absolute; top: 10px; right: 10px" data-glb="assets/meshs/4.glb" data-prompt="Input Prompt 1">View GLB</div> -->
+                            <div style="width: 85%; aspect-ratio: 1; background-color: rgba(0,0,0,0.05); border-radius: 4px; overflow: hidden;">
+                                <video 
+                                    autoplay 
+                                    loop 
+                                    muted 
+                                    playsinline 
+                                    style="width: 100%; height: 100%; object-fit: contain;">
+                                    <source src="assets/videos/4.mp4" type="video/mp4">
+                                </video>
+                            </div>
+                            <div style="width: 200px; aspect-ratio: 1; background-color: rgba(0,0,0,0.05); border-radius: 4px; overflow: hidden;">
+                                <img 
+                                    src="assets/images/4.png" 
+                                    alt="Input Image"
+                                    style="width: 100%; height: 100%; object-fit: contain; display: block;"
+                                >
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Item 5 -->
+                    <div class="x-carousel-slider-item" data-tag="class1" style="flex-basis: calc(100% / 1);">
+                        <div class="x-card" style="height: 70vh;">
+                            <!-- <div class="x-button" style="position: absolute; top: 10px; right: 10px" data-glb="assets/meshs/5.glb" data-prompt="Input Prompt 1">View GLB</div> -->
+                            <div style="width: 85%; aspect-ratio: 1; background-color: rgba(0,0,0,0.05); border-radius: 4px; overflow: hidden;">
+                                <video 
+                                    autoplay 
+                                    loop 
+                                    muted 
+                                    playsinline 
+                                    style="width: 100%; height: 100%; object-fit: contain;">
+                                    <source src="assets/videos/5.mp4" type="video/mp4">
+                                </video>
+                            </div>
+                            <div style="width: 200px; aspect-ratio: 1; background-color: rgba(0,0,0,0.05); border-radius: 4px; overflow: hidden;">
+                                <img 
+                                    src="assets/images/5.png" 
+                                    alt="Input Image"
+                                    style="width: 100%; height: 100%; object-fit: contain; display: block;"
+                                >
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Item 6 -->
+                    <div class="x-carousel-slider-item" data-tag="class1" style="flex-basis: calc(100% / 1);">
+                        <div class="x-card" style="height: 70vh;">
+                            <!-- <div class="x-button" style="position: absolute; top: 10px; right: 10px" data-glb="assets/meshs/6.glb" data-prompt="Input Prompt 1">View GLB</div> -->
+                            <div style="width: 85%; aspect-ratio: 1; background-color: rgba(0,0,0,0.05); border-radius: 4px; overflow: hidden;">
+                                <video 
+                                    autoplay 
+                                    loop 
+                                    muted 
+                                    playsinline 
+                                    style="width: 100%; height: 100%; object-fit: contain;">
+                                    <source src="assets/videos/6.mp4" type="video/mp4">
+                                </video>
+                            </div>
+                            <div style="width: 200px; aspect-ratio: 1; background-color: rgba(0,0,0,0.05); border-radius: 4px; overflow: hidden;">
+                                <img 
+                                    src="assets/images/6.png" 
+                                    alt="Input Image"
+                                    style="width: 100%; height: 100%; object-fit: contain; display: block;"
+                                >
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Item 7 -->
+                    <div class="x-carousel-slider-item" data-tag="class1" style="flex-basis: calc(100% / 1);">
+                        <div class="x-card" style="height: 70vh;">
+                            <!-- <div class="x-button" style="position: absolute; top: 10px; right: 10px" data-glb="assets/meshs/7.glb" data-prompt="Input Prompt 1">View GLB</div> -->
+                            <div style="width: 85%; aspect-ratio: 1; background-color: rgba(0,0,0,0.05); border-radius: 4px; overflow: hidden;">
+                                <video 
+                                    autoplay 
+                                    loop 
+                                    muted 
+                                    playsinline 
+                                    style="width: 100%; height: 100%; object-fit: contain;">
+                                    <source src="assets/videos/7.mp4" type="video/mp4">
+                                </video>
+                            </div>
+                            <div style="width: 200px; aspect-ratio: 1; background-color: rgba(0,0,0,0.05); border-radius: 4px; overflow: hidden;">
+                                <img 
+                                    src="assets/images/7.png" 
+                                    alt="Input Image"
+                                    style="width: 100%; height: 100%; object-fit: contain; display: block;"
+                                >
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Item 8 -->
+                    <div class="x-carousel-slider-item" data-tag="class3" style="flex-basis: calc(100% / 1);">
+                        <div class="x-card" style="height: 70vh;">
+                            <!-- <div class="x-button" style="position: absolute; top: 10px; right: 10px" data-glb="assets/meshs/8.glb" data-prompt="Input Prompt 1">View GLB</div> -->
+                            <div style="width: 85%; aspect-ratio: 1; background-color: rgba(0,0,0,0.05); border-radius: 4px; overflow: hidden;">
+                                <video 
+                                    autoplay 
+                                    loop 
+                                    muted 
+                                    playsinline 
+                                    style="width: 100%; height: 100%; object-fit: contain;">
+                                    <source src="assets/videos/8.mp4" type="video/mp4">
+                                </video>
+                            </div>
+                            <div style="width: 200px; aspect-ratio: 1; background-color: rgba(0,0,0,0.05); border-radius: 4px; overflow: hidden;">
+                                <img 
+                                    src="assets/images/8.png" 
+                                    alt="Input Image"
+                                    style="width: 100%; height: 100%; object-fit: contain; display: block;"
+                                >
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Item 9 -->
+                    <div class="x-carousel-slider-item" data-tag="class3" style="flex-basis: calc(100% / 1);">
+                        <div class="x-card" style="height: 70vh;">
+                            <!-- <div class="x-button" style="position: absolute; top: 10px; right: 10px" data-glb="assets/meshs/9.glb" data-prompt="Input Prompt 1">View GLB</div> -->
+                            <div style="width: 85%; aspect-ratio: 1; background-color: rgba(0,0,0,0.05); border-radius: 4px; overflow: hidden;">
+                                <video 
+                                    autoplay 
+                                    loop 
+                                    muted 
+                                    playsinline 
+                                    style="width: 100%; height: 100%; object-fit: contain;">
+                                    <source src="assets/videos/9.mp4" type="video/mp4">
+                                </video>
+                            </div>
+                            <div style="width: 200px; aspect-ratio: 1; background-color: rgba(0,0,0,0.05); border-radius: 4px; overflow: hidden;">
+                                <img 
+                                    src="assets/images/9.png" 
+                                    alt="Input Image"
+                                    style="width: 100%; height: 100%; object-fit: contain; display: block;"
+                                >
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Item 10 -->
+                    <div class="x-carousel-slider-item" data-tag="class3" style="flex-basis: calc(100% / 1);">
+                        <div class="x-card" style="height: 70vh;">
+                            <!-- <div class="x-button" style="position: absolute; top: 10px; right: 10px" data-glb="assets/meshs/10.glb" data-prompt="Input Prompt 1">View GLB</div> -->
+                            <div style="width: 85%; aspect-ratio: 1; background-color: rgba(0,0,0,0.05); border-radius: 4px; overflow: hidden;">
+                                <video 
+                                    autoplay 
+                                    loop 
+                                    muted 
+                                    playsinline 
+                                    style="width: 100%; height: 100%; object-fit: contain;">
+                                    <source src="assets/videos/10.mp4" type="video/mp4">
+                                </video>
+                            </div>
+                            <div style="width: 200px; aspect-ratio: 1; background-color: rgba(0,0,0,0.05); border-radius: 4px; overflow: hidden;">
+                                <img 
+                                    src="assets/images/10.png" 
+                                    alt="Input Image"
+                                    style="width: 100%; height: 100%; object-fit: contain; display: block;"
+                                >
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Item 11 -->
+                    <div class="x-carousel-slider-item" data-tag="class1" style="flex-basis: calc(100% / 1);">
+                        <div class="x-card" style="height: 70vh;">
+                            <!-- <div class="x-button" style="position: absolute; top: 10px; right: 10px" data-glb="assets/meshs/11.glb" data-prompt="Input Prompt 1">View GLB</div> -->
+                            <div style="width: 85%; aspect-ratio: 1; background-color: rgba(0,0,0,0.05); border-radius: 4px; overflow: hidden;">
+                                <video 
+                                    autoplay 
+                                    loop 
+                                    muted 
+                                    playsinline 
+                                    style="width: 100%; height: 100%; object-fit: contain;">
+                                    <source src="assets/videos/11.mp4" type="video/mp4">
+                                </video>
+                            </div>
+                            <div style="width: 200px; aspect-ratio: 1; background-color: rgba(0,0,0,0.05); border-radius: 4px; overflow: hidden;">
+                                <img 
+                                    src="assets/images/11.png" 
+                                    alt="Input Image"
+                                    style="width: 100%; height: 100%; object-fit: contain; display: block;"
+                                >
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Item 12 -->
+                    <div class="x-carousel-slider-item" data-tag="class1" style="flex-basis: calc(100% / 1);">
+                        <div class="x-card" style="height: 70vh;">
+                            <!-- <div class="x-button" style="position: absolute; top: 10px; right: 10px" data-glb="assets/meshs/12.glb" data-prompt="Input Prompt 1">View GLB</div> -->
+                            <div style="width: 85%; aspect-ratio: 1; background-color: rgba(0,0,0,0.05); border-radius: 4px; overflow: hidden;">
+                                <video 
+                                    autoplay 
+                                    loop 
+                                    muted 
+                                    playsinline 
+                                    style="width: 100%; height: 100%; object-fit: contain;">
+                                    <source src="assets/videos/12.mp4" type="video/mp4">
+                                </video>
+                            </div>
+                            <div style="width: 200px; aspect-ratio: 1; background-color: rgba(0,0,0,0.05); border-radius: 4px; overflow: hidden;">
+                                <img 
+                                    src="assets/images/12.png" 
+                                    alt="Input Image"
+                                    style="width: 100%; height: 100%; object-fit: contain; display: block;"
+                                >
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Item 13 -->
+                    <div class="x-carousel-slider-item" data-tag="class1" style="flex-basis: calc(100% / 1);">
+                        <div class="x-card" style="height: 70vh;">
+                            <!-- <div class="x-button" style="position: absolute; top: 10px; right: 10px" data-glb="assets/meshs/13.glb" data-prompt="Input Prompt 1">View GLB</div> -->
+                            <div style="width: 85%; aspect-ratio: 1; background-color: rgba(0,0,0,0.05); border-radius: 4px; overflow: hidden;">
+                                <video 
+                                    autoplay 
+                                    loop 
+                                    muted 
+                                    playsinline 
+                                    style="width: 100%; height: 100%; object-fit: contain;">
+                                    <source src="assets/videos/13.mp4" type="video/mp4">
+                                </video>
+                            </div>
+                            <div style="width: 200px; aspect-ratio: 1; background-color: rgba(0,0,0,0.05); border-radius: 4px; overflow: hidden;">
+                                <img 
+                                    src="assets/images/13.png" 
+                                    alt="Input Image"
+                                    style="width: 100%; height: 100%; object-fit: contain; display: block;"
+                                >
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="x-carousel-nav">
+                    <div class="x-carousel-switch">&lt;</div>
+                    <div class="x-carousel-pages">
+                        <div class="x-carousel-page x-carousel-page-active"></div>
+                        <div class="x-carousel-page"></div>
+                        <div class="x-carousel-page"></div>
+                    </div>
+                    <div class="x-carousel-switch">&gt;</div>
+                </div>
+            </div>
+
+            <div class="x-section-title" style="text-align: center; margin-top: 150px;">Comparison of 3D Shape Generation</div>
+
+            <div id="results-recon" style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
+                <div class="x-carousel-slider">
+                    
+                    <!-- 第一张图 -->
+                    <div class="x-carousel-slider-item" style="flex-basis: calc(100% / 1);">
+                        <!-- 修改1：增加 display: flex; flex-direction: column; -->
+                        <div class="x-card" style="height: 86vh; background-color: #faf9f7; border-radius: 4px; overflow: hidden; display: flex; flex-direction: column;">
+                            <div class="x-img-caption" style="padding: 10px; text-align: center; background: #faf9f7; font-size: 24px; color: #333; flex-shrink: 0;">
+                                Comparison with Open-Source Models 1
+                            </div>
+                            <!-- 修改2：将图片高度改为 flex: 1 或 auto，去掉 height: 100% -->
+                            <img 
+                                src="assets/images/comp-open1.png" 
+                                alt="Comparison with Open-Source Models 1"
+                                style="width: 100%; flex: 1; min-height: 0; object-fit: contain; display: block;"
+                            >
+                        </div>
+                    </div>
+
+                    <!-- 第二张图 -->
+                    <div class="x-carousel-slider-item" style="flex-basis: calc(100% / 1);">
+                        <div class="x-card" style="height: 86vh; background-color: #faf9f7; border-radius: 4px; overflow: hidden; display: flex; flex-direction: column;">
+                            <div class="x-img-caption" style="padding: 10px; text-align: center; background: #faf9f7; font-size: 24px; color: #333; flex-shrink: 0;">
+                                Comparison with Open-Source Models 2
+                            </div>
+                            <img 
+                                src="assets/images/comp-open2.png" 
+                                alt="Comparison with Open-Source Models 2"
+                                style="width: 100%; flex: 1; min-height: 0; object-fit: contain; display: block;"
+                            >
+                            <!-- <div class="x-img-caption" style="padding: 10px; text-align: center; background: #faf9f7; font-size: 16px; color: #333;">
+                                Comparison with Open-Source Models 2
+                            </div> -->
+                        </div>
+                    </div>
+
+                    <!-- 第三张图 -->
+                    <div class="x-carousel-slider-item" style="flex-basis: calc(100% / 1);">
+                        <div class="x-card" style="height: 86vh; background-color: #faf9f7; border-radius: 4px; overflow: hidden; display: flex; flex-direction: column;">
+                            <div class="x-img-caption" style="padding: 10px; text-align: center; background: #faf9f7; font-size: 24px; color: #333; flex-shrink: 0;">
+                                Comparison with Commercial Models
+                            </div>
+                            <img 
+                                src="assets/images/comp-close.png" 
+                                alt="Comparison with Close Models 1"
+                                style="width: 100%; flex: 1; min-height: 0; object-fit: contain; display: block;"
+                            >
+                            <!-- <div class="x-img-caption" style="padding: 15px; text-align: center; background: #faf9f7; font-size: 16px; color: #333;">
+                                Comparison with Close Models 1
+                            </div> -->
+                        </div>
+                    </div>
+
+                </div>
+                
+                <div class="x-carousel-nav">
+                    <div class="x-carousel-switch">&lt;</div>
+                    <div class="x-carousel-pages">
+                        <div class="x-carousel-page x-carousel-page-active"></div>
+                        <div class="x-carousel-page"></div>
+                    </div>
+                    <div class="x-carousel-switch">&gt;</div>
+                </div>
+            </div>
+
+            </div>
+            <div class="x-small-header" style="text-align: center; margin-top: -100px;">Citation</div>
+            <div class="bibtex-entry" style="max-width: 800px; width: 90%; margin: 20px auto; box-sizing: border-box; background-color: #f5f5f5; padding: 15px; border-radius: 5px; overflow-x: auto;">
+                <div class="line">
+                    <span class="value">@article{jia2025ultrashape,</span>
+                </div>
+                <div class="line">
+                    <span class="key">    title={</span>
+                    <span class="value">UltraShape 1.0: High-Fidelity 3D Shape Generation via Scalable Geometric Refinement},</span>
+                </div>
+                <div class="line">
+                    <span class="key">    author={</span>
+                    <span class="value">Jia, Tanghui and Yan, Dongyu and Hao, Dehao and Li, Yang and Zhang, Kaiyi and He, Xianyi and Li, Lanjiong and Chen, Jinnan and Jiang, Lutao and Yin, Qishen and Quan, Long and Chen, Ying-Cong and Yuan, Li},</span>
+                </div>
+                <div class="line">
+                    <span class="key">    journal={</span>
+                    <span class="value">arxiv preprint arXiv:2512.21185},</span>
+                </div>
+                <div class="line">
+                    <span class="key">    year={</span>
+                    <span class="value">2025}</span>
+                </div>
+                <div class="line">}</div>
+            </div>
+            <div style="height: 100px;"> </div>
+
+        </div>
+
+        <footer style="text-align: center; padding: 20px 0; color: #666; font-size: 14px;">
+            <p>
+                The website template was borrowed from <a href="https://microsoft.github.io/TRELLIS.2/" target="_blank">TRELLIS.2</a>.
+            </p>
+        </footer>
+
+        <!-- Scroll Down Indicator -->
+        <div id="scroll-indicator" class="scroll-indicator">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M7 13l5 5 5-5"></path>
+            </svg>
+        </div>
+
+    <div id="fullscreen">
+        <div id="window">
+            <div id="close">✕</div>
+            <div id="content"></div>
+        </div>
+    </div>
+        <script>
+            // Mouse-following gradient effect
+            document.addEventListener('DOMContentLoaded', function() {
+                const gradientEl = document.querySelector('.animated-gradient');
+                if (!gradientEl) return;
+
+                gradientEl.addEventListener('mousemove', function(e) {
+                    const rect = gradientEl.getBoundingClientRect();
+                    const x = ((e.clientX - rect.left) / rect.width) * 100;
+                    const y = ((e.clientY - rect.top) / rect.height) * 100;
+                    
+                    gradientEl.style.setProperty('--mouse-x', x + '%');
+                    gradientEl.style.setProperty('--mouse-y', y + '%');
+                });
+
+                // Reset to center when mouse leaves
+                gradientEl.addEventListener('mouseleave', function() {
+                    gradientEl.style.setProperty('--mouse-x', '50%');
+                    gradientEl.style.setProperty('--mouse-y', '50%');
+                });
+            });
+
+            // Scroll expand effect - hero section expands on scroll
+            (function() {
+                const hero = document.querySelector('.hero-expandable');
+                if (!hero) return;
+
+                const windowHeight = window.innerHeight;
+                const expandThreshold = windowHeight * 0.5; // Start expanding after scrolling 50vh
+                
+                function updateHero() {
+                    const scrollY = window.scrollY;
+                    
+                    if (scrollY === 0) {
+                        // Initial state - hero is 90vh (positioned lower, showing content below)
+                        hero.style.height = '90vh';
+                    } else if (scrollY <= expandThreshold) {
+                        // Expanding phase - hero grows from 90vh to 100vh
+                        const progress = scrollY / expandThreshold;
+                        const newHeight = 90 + (10 * progress);
+                        hero.style.height = newHeight + 'vh';
+                    } else {
+                        // Fully expanded - hero is 100vh
+                        hero.style.height = '100vh';
+                    }
+                }
+
+                // Initial state
+                hero.style.height = '90vh';
+                
+                // Throttle scroll for better performance
+                let ticking = false;
+                window.addEventListener('scroll', function() {
+                    if (!ticking) {
+                        window.requestAnimationFrame(function() {
+                            updateHero();
+                            ticking = false;
+                        });
+                        ticking = true;
+                    }
+                }, { passive: true });
+                
+                // Handle initial load
+                updateHero();
+            })();
+
+            // View GLB functionality
+            (function() {
+                const fullscreen = document.getElementById('fullscreen');
+                const windowEl = document.getElementById('window');
+                const closeBtn = document.getElementById('close');
+                const content = document.getElementById('content');
+
+                if (!fullscreen || !windowEl || !closeBtn || !content) return;
+
+                /**
+                 * Open fullscreen window with GLB model
+                 * @param {string} glbPath - Path to GLB file
+                 * @param {string} prompt - Input prompt text
+                 */
+                function openGLBViewer(glbPath, prompt) {
+                    // Create model-viewer element
+                    content.innerHTML = `
+                        <div style="display: flex; flex-wrap: wrap; align-items: start; justify-content: center;">
+                            <div class="modelviewer-container" style="width: 500px; height: 500px;">
+                                <model-viewer
+                                    src="${glbPath}"
+                                    alt="3D Model"
+                                    camera-controls
+                                    auto-rotate
+                                    interaction-policy="allow-when-focused"
+                                    reveal="auto"
+                                    style="width: 100%; height: 100%; background-color: #f5f5f5; display: block;"
+                                    loading="eager"
+                                    shadow-intensity="1"
+                                    exposure="1"
+                                    tone-mapping="neutral"
+                                >
+                                </model-viewer>
+                            </div>
+                            <div class="modelviewer-panel">
+                                <div class="modelviewer-panel-desc">
+                                    <div>Input Prompt</div>
+                                </div>
+                                <div class="modelviewer-panel-prompt">
+                                    ${prompt || '[PLACEHOLDER: Input prompt text]'}
+                                </div>
+                            </div>
+                        </div>
+                    `;
+
+                    // Show fullscreen window
+                    fullscreen.style.display = 'flex';
+                    // Trigger opacity transition after a short delay to ensure model-viewer is ready
+                    setTimeout(() => {
+                        fullscreen.style.opacity = '1';
+                        // Get the model-viewer element and add error handling
+                        const modelViewer = content.querySelector('model-viewer');
+                        if (modelViewer) {
+                            // Add load success handler
+                            modelViewer.addEventListener('load', () => {
+                                console.log('Model loaded successfully:', glbPath);
+                                // Force update after load
+                                setTimeout(() => {
+                                    modelViewer.style.width = '100%';
+                                    modelViewer.style.height = '100%';
+                                    modelViewer.style.display = 'block';
+                                }, 100);
+                            });
+                            
+                            // Add error handler
+                            modelViewer.addEventListener('error', (e) => {
+                                console.error('Model loading error:', e);
+                                console.error('Failed path:', glbPath);
+                                const container = content.querySelector('.modelviewer-container');
+                                if (container) {
+                                    container.innerHTML = `
+                                        <div style="display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; color: #d32f2f; text-align: center; padding: 20px;">
+                                            <div>
+                                                <div style="font-size: 16px; margin-bottom: 8px; font-weight: 600;">Failed to load model</div>
+                                                <div style="font-size: 12px; color: #666; margin-bottom: 8px;">Path: ${glbPath}</div>
+                                                <div style="font-size: 11px; color: #999;">Please check the file path and ensure the file exists</div>
+                                            </div>
+                                        </div>
+                                    `;
+                                }
+                            });
+                        } else {
+                            console.error('model-viewer element not found after creation');
+                        }
+                    }, 100);
+                }
+
+                /**
+                 * Close fullscreen window
+                 */
+                function closeGLBViewer() {
+                    fullscreen.style.opacity = '0';
+                    setTimeout(() => {
+                        fullscreen.style.display = 'none';
+                        content.innerHTML = '';
+                    }, 250); // Match transition duration
+                }
+
+                // Add click handlers to all View GLB buttons
+                document.addEventListener('click', function(e) {
+                    const button = e.target.closest('.x-button');
+                    if (button && button.textContent.trim() === 'View GLB') {
+                        const glbPath = button.getAttribute('data-glb');
+                        const prompt = button.getAttribute('data-prompt');
+                        if (glbPath) {
+                            openGLBViewer(glbPath, prompt);
+                        }
+                    }
+                });
+
+                // Close button handler
+                closeBtn.addEventListener('click', closeGLBViewer);
+
+                // Close on backdrop click
+                fullscreen.addEventListener('click', function(e) {
+                    if (e.target === fullscreen) {
+                        closeGLBViewer();
+                    }
+                });
+
+                // Close on Escape key
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape' && fullscreen.style.display === 'flex') {
+                        closeGLBViewer();
+                    }
+                });
+            })();
+        </script>
+    </body></html>
